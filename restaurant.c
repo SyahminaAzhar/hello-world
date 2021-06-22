@@ -124,3 +124,4 @@ int main (void)
 	osKernelStart ();                         // start thread execution 
 }
 
+ostex
