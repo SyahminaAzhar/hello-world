@@ -37,7 +37,7 @@ long int i=0;
 long int j=0;
 
 
-const unsigned int N = 4;
+const unsigned int N = 3;
 unsigned char buffer[N];
 unsigned int insertPtr = 0;
 unsigned int removePtr = 0;
