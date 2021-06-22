@@ -15,12 +15,11 @@ void x_Thread4 (void const *argument);
 osThreadDef(x_Thread1, osPriorityNormal, 1, 0);
 osThreadDef(x_Thread2, osPriorityNormal, 1, 0);
 osThreadDef(x_Thread3, osPriorityNormal, 1, 0);
-osThreadDef(x_Thread4, osPriorityNormal, 1, 0);
 
 osThreadId T_x1;
 osThreadId T_x2;
 osThreadId T_x3;
-osThreadId T_x4;
+
 
 osMessageQId Q_LED;
 osMessageQDef (Q_LED,0x16,unsigned char);
@@ -36,7 +35,7 @@ osSemaphoreDef(space_semaphore);                       // Semaphore definition
 long int x=0;
 long int i=0;
 long int j=0;
-long int k=0;
+
 
 const unsigned int N = 4;
 unsigned char buffer[N];
@@ -85,18 +84,8 @@ void x_Thread2 (void const *argument)
 	}
 }
 
-void x_Thread3 (void const *argument) 
-{
-	//consumer (waiter #2)
-	unsigned int c2data = 0x00;
-	for(; k<loopcount; k++){
-		c2data = get();
-		//SendChar(c2data);
-		osMessagePut(Q_LED,c2data,osWaitForever);             //Place a value in the message queue
-	}
-}
 
-void x_Thread4(void const *argument)
+void x_Thread3(void const *argument)
 {
 	//cashier
 	for(;;){
@@ -117,8 +106,7 @@ int main (void)
 	
 	T_x1 = osThreadCreate(osThread(x_Thread1), NULL);//producer
 	T_x2 = osThreadCreate(osThread(x_Thread2), NULL);//consumer
-	T_x3 = osThreadCreate(osThread(x_Thread3), NULL);//another consumer
-	T_x4 = osThreadCreate(osThread(x_Thread4), NULL);//casher
+	T_x3 = osThreadCreate(osThread(x_Thread4), NULL);//casher
 	
  
 	osKernelStart ();                         // start thread execution 
